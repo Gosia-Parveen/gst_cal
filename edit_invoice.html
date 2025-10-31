@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home_page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        min-height: 150vh;
+        background-color: whitesmoke;
+      }
+/* Navbar */
+      .navbar {
+        background-color: #278a5f;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: relative;      
+        top: 2px;               
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+      z-index: 1000;
+      }
+
+      .navbar a {
+        color: white;
+        text-align: center;
+        padding: 12px 16px;
+        text-decoration: none;
+        font-size: 16px;
+      }
+
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      
+
+      .navbar-brand {
+        font-family: 'Brush Script MT';
+      }
+
+      #sidebar {
+        position: absolute;
+        top: 650px; /* Below the navbar */
+        left: 0;
+        width: 250px;
+        height: calc(100% - 60px);
+        background-color: #278a5f;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1040;
+        overflow-y: auto;
+      }
+
+      #sidebar.show {
+        transform: translateX(0);
+      }
+
+      .content-wrapper {
+        transition: margin-left 0.3s ease-in-out;
+      }
+
+      .content-wrapper.shifted {
+        margin-left: 250px;
+      }
+
+    /* IMAGE DETAILS */
+      .gos_images {
+          width: auto;
+          height: 550px;
+          position: relative;
+          padding-bottom: 20px;
+          align-items: center;
+          margin-left: 20px;
+          margin-right: 20px;
+          margin-top: 2px;
+          gap: 50px;
+          background-repeat: no-repeat;
+          background-size: cover;       /* ✅ Ensures full coverage */
+          background-position: center;  /* ✅ Centers the image */
+       }
+     /* TEXT DETAILS */
+/* ✅ Center the table nicely */
+.textbox {
+  position: relative;
+  font-family: 'Times New Roman';
+  margin-top: 30px;
+  margin-left: auto;      /* center horizontally */
+  margin-right: auto;     /* center horizontally */
+  padding-bottom: 40px;
+  width: 95%;             /* control width of the section */
+  text-align: center;     /* center headings inside */
+  font-size: 20px;
+}
+
+/* ✅ Keep table itself centered and limited width */
+.table {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 auto;         /* centers the table */
+  border-collapse: collapse;
+}
+     
+
+      .textbox button {
+        display: block;
+        margin: 25px auto 0 auto;
+        padding: 12px 20px;
+        background-color: #1cc88a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 10px;
+        transition: 0.3s;
+      }
+
+      .textbox button:hover {
+        background-color: #17a673;
+        transform: scale(1.05);
+      }
+
+      /* CONTACT TEXT DETAILS */
+      .cont_text {
+          height: 300px;
+          position: relative;
+          font-family: 'Times New Roman';
+          background-color: #1aa06d;
+          align-items: center;
+          padding: 40px 80px;
+          display: flex;
+          justify-content: space-between;
+          gap: 40px;
+      }
+
+      .cont_text h3 {
+          font-size: 20px;
+          color: black;
+          text-align: left;
+      }
+
+      .cont_text p {
+          font-size: 15px;
+          color: black;
+          text-align: left;
+      }
+
+      .cont_text img {
+          display: block;
+          height: 280px;
+          width: 500px;
+          margin: 0;
+          border-radius: 10px;
+          object-fit: cover; /* ✅ Prevents distortion */
+      }
+
+    </style>
+  </head>
+  <body>
+    <!--IMAGE PLACEMENT-->
+
+        <div id="gos_images" class="gos_images"></div>
+
+    
+    <!-- Navbar -->
+    <nav class="navbar fixed-top text-white navbar-light">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="navbar-toggler" type="button" id="toggleSidebar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <h2 style="color: aliceblue; margin: 2px, 50px, 2px, 50px; font-size: 60px; font-family:Times New Roman;">TaxPilot</h2>
+          <img src="{{ url_for('static', filename='photo/black.png') }}" class="rounded float-end" alt="logo" style="width:60px; position:absolute; top:2px; right:20px;">
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"></h5>
+        <button type="button" class="btn-close btn-close-white" id="closeSidebar"></button>
+      </div>
+      <ul class="navbar-nav flex-column px-3">
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('add_customer') }}">Add Customer</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('edit_customer') }}">Edit Customer</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('invoice') }}">Invoice</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('edit_invoice') }}">Edit Invoice</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+                <!--TABLE PLACEMENT-->
+
+        <div class="textbox">
+            <h1><u><b><i>EDIT CUSTOMER</i></b></u></h1>
+            <table class="table table-bordered border-success">
+                <thead>
+                      <tr>
+                        <th scope="col">Invoice Number</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Rent</th>
+                        <th scope="col">Rent Amount</th>
+                        <th scope="col">Free Copy</th>
+                        <th scope="col">Rate Per Copy</th>
+                        <th scope="col">Last Reading</th>
+                        <th scope="col">Current Reading</th>
+                        <th scope="col">Net Reading</th>
+                        <th scope="col">Payable Amount</th>
+                        <th scope="col">Sub Total</th>
+                        <th scope="col">Tax Type</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+  {% for row in data %}
+  <tr>
+    <th scope="row">{{ row[0] }}</th>
+    <td title="{{ row[1] }}">{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+    <td>{{ row[4] }}</td>
+    <td>{{ row[5] }}</td>
+    <td>{{ row[6] }}</td>
+    <td>{{ row[7] }}</td>
+    <td>{{ row[8] }}</td>
+    <td>{{ row[9] }}</td>
+    <td>{{ row[10] }}</td>
+    <td>{{ row[11] }}</td>
+    <td>{{ row[12] }}</td>
+    <td>{{ row[13] }}</td>
+    <td><button type="button" class="btn btn-success">EDIT</button></td>
+  </tr>
+  {% endfor %}
+</tbody>
+            </table>
+        </div>
+
+
+
+                <!--CONTACT DETAILS SHORT PLACEMENT-->
+
+            <div class="cont_text">
+                <div>
+                    <h2 style="text-align: center;">CONTACT DETAILS</h2>
+                    <h3>Phone no.</h3>
+                    <p>+91 98765 43210</p>
+
+                    <h3>Email Address</h3>
+                    <p>vaastu.consultancy@example.com </p>
+
+                    <h3>Location</h3>
+                    <p>123 Green Avenue, Sector 12, Connaught Place, New Delhi, India - 110001.</p>
+                </div>
+                <img src="{{ url_for('static', filename='photo/map.jpg') }}"> 
+            </div>
+    </main>
+    <!-- Script -->
+    <script>
+              const sidebar = document.getElementById('sidebar');
+          const content = document.querySelector('.content-wrapper');
+          const toggleBtn = document.getElementById('toggleSidebar');
+          const closeBtn = document.getElementById('closeSidebar');
+
+          // Open sidebar when clicking toggle button
+          toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+            content.classList.toggle('shifted');
+          });
+
+          // Close sidebar when clicking close button
+          closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            content.classList.remove('shifted');
+          });
+ 
+        // photo slide show 
+        function startSlideshow() {
+            var img = [  
+                "{{ url_for('static', filename='photo/D.png') }}",
+                "{{ url_for('static', filename='photo/D1.png') }}",
+                "{{ url_for('static', filename='photo/D2.png') }}",
+                "{{ url_for('static', filename='photo/D3.png') }}"
+            ];
+    
+            var index = 0;
+            var box = document.getElementById("gos_images"); // ✅ fixed id
+
+            function changeImage() {
+                box.style.backgroundImage = "url('" + img[index] + "')";
+                index = (index + 1) % img.length;
+            }
+
+            changeImage();
+            setInterval(changeImage, 2000); // change every 2s
+        }
+
+        window.onload = startSlideshow;
+    </script>
+  </body>
+</html>
+
